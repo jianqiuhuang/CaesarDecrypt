@@ -1,7 +1,10 @@
 
 package caesarCipher.driver;
 
-import caesarCipher.util.FileProcessor.java;
+import java.util.*;
+import caesarCipher.util.*;
+import caesarCipher.decrypt.*;
+
 public class Driver{
     /**
      * Used to output error message made by invalid command line argument and then exit the program
@@ -42,9 +45,12 @@ public class Driver{
         }
 
         /******************/
+        
+        System.out.println("Arguments: " + inputFileName + ", " + outputFileName + ", " + shiftValue + ", " + numberOfThreads + ", " + debugValue);
         FileProcessor infile = new FileProcessor(inputFileName);
-
-
+        CreateWorkers wokers = new CreateWorkers();
+        wokers.startWorkers(numberOfThreads, infile);
+        
         infile.closeFile();
         
 
