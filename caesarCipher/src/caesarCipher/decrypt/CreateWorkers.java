@@ -2,20 +2,31 @@ package caesarCipher.decrypt;
 
 import java.util.*;
 import caesarCipher.util.*;
+import caesarCipher.store.*;
+import caesarCipher.util.Logger.DebugLevel;
 
 public class CreateWorkers  {
 
-    // this class has the method startWokers(...)
-    public void startWorkers(int numberOfWorkers, FileProcessor infile){
+    /**
+     * @param numberOfWorkers number of threads to initiate
+     * @param infile input file stream
+     * @param decrypter decrypt object
+     * @param store object that store decode string
+     * @param shiftValue # of shift position for decryption
+     * @param logger debugging object
+     **/
+    public void startWorkers(int numberOfWorkers, FileProcessor infile, CaesarDecrypt decrypter, DecodedStore store, int shiftValue, Logger logger){
         //Store all initialized threads
         Vector<Thread> threadContainer = new Vector();
         
         try{
             for(int i = 0; i < numberOfWorkers; i++){
-                ThreadedDecrypter obj = new ThreadedDecrypter(infile, i);
+                ThreadedDecrypter obj = new ThreadedDecrypter(infile, i, decrypter, store, shiftValue, logger);
+                logger.writeMessage("ThreadedDecrypter constructor called", DebugLevel.CONSTRUCTOR); 
                 Thread newThread = new Thread(obj);
+                logger.writeMessage("Thread constructor called", DebugLevel.CONSTRUCTOR);
                 threadContainer.addElement(newThread);
-                System.out.println("Thread #" + i + " created");
+               // System.out.println("Thread #" + i + " created");
                 newThread.start();
             }
         }catch(Exception e){
@@ -36,5 +47,12 @@ public class CreateWorkers  {
         }finally{
 
         }    
+    }
+
+    /**
+     * @return
+     */
+    public String toString(){
+        return "";
     }
 }

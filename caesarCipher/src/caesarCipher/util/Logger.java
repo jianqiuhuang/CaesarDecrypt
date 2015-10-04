@@ -8,7 +8,9 @@ public class Logger{
 
     private static DebugLevel debugLevel;
 
-
+    /**
+     * Set debug level value
+     */ 
     public static void setDebugValue (int levelIn) {
         switch (levelIn) {
           case 0: debugLevel = DebugLevel.NO_OUTPUT; break;
@@ -20,16 +22,24 @@ public class Logger{
         }
     }
 
+    /**
+     * Set debug level value
+     */
     public static void setDebugValue (DebugLevel levelIn) {
 	    debugLevel = levelIn;
     }
 
-    // @return None
+    /**
+     * Print debugging message based on debug level
+     */
     public static void writeMessage (String message, DebugLevel levelIn ) {
 	    if (levelIn == debugLevel)
 	        System.out.println(message);
     }
 
+    /**
+     * @return debug level
+     */
     public String toString() {
 	    return "Debug Level is " + debugLevel;
     }

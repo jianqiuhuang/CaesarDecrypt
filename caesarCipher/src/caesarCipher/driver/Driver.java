@@ -4,6 +4,8 @@ package caesarCipher.driver;
 import java.util.*;
 import caesarCipher.util.*;
 import caesarCipher.decrypt.*;
+import caesarCipher.store.*;
+import caesarCipher.util.Logger.DebugLevel;
 
 public class Driver{
     /**
@@ -45,13 +47,33 @@ public class Driver{
         }
 
         /******************/
-        
-        System.out.println("Arguments: " + inputFileName + ", " + outputFileName + ", " + shiftValue + ", " + numberOfThreads + ", " + debugValue);
-        FileProcessor infile = new FileProcessor(inputFileName);
+        //Initialize all necessary objects
+        Logger logger = new Logger();
+        logger.writeMessage("Logger constructor called", DebugLevel.CONSTRUCTOR);
+        logger.setDebugValue(debugValue);
+        FileProcessor infile = new FileProcessor(inputFileName, 'r');
+        logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
+        FileProcessor outfile = new FileProcessor(outputFileName, 'w');
+        logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
         CreateWorkers wokers = new CreateWorkers();
-        wokers.startWorkers(numberOfThreads, infile);
+        logger.writeMessage("CreatedWorkers constructor called", DebugLevel.CONSTRUCTOR);
+        CaesarDecrypt decrypter = new CaesarDecrypt();
+        logger.writeMessage("CaesarDecrypt constructor called", DebugLevel.CONSTRUCTOR);
+        DecodedStore store = new DecodedStore(); 
+        logger.writeMessage("DecodedStore constructor called", DebugLevel.CONSTRUCTOR);
+        wokers.startWorkers(numberOfThreads, infile, decrypter, store, shiftValue, logger);
+
+        //Debug level that required to print data stored in store
+        if(debugValue == 1){
+            logger.writeMessage(store.toString(), DebugLevel.RESULT_CONTENT);
+        }
         
+        //Write data to file
+        store.writeToFile(outfile);
+
+        //Close file streams before existing
         infile.closeFile();
+        outfile.closeFile();
         
 
 	} // end main(...)

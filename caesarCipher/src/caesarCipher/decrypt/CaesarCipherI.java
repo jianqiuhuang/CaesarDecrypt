@@ -4,6 +4,11 @@ import java.util.*;
 
 public interface CaesarCipherI {
 
-    // method name to take a string, cecrypt it, and return it
-    public String decode(String line); 
+
+    /**
+     ** @param line cipher text stored in a string
+     ** @param shiftValue number of character position to shift
+     ** @return decoded string
+     **/
+    public String decode(String line, int shiftValue); 
 }
