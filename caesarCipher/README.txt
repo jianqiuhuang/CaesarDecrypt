@@ -13,6 +13,9 @@ e-mail(s): JHUANG86@BINGHAMTON.EDU AND ...
 PURPOSE:
 
   This program is designed to decrypt Cipher text from input file using multi-threading approach
+  All shared resources are synchronized using the Java modifier "synchronized"
+  We choose vector as the data structure to store decoded strings because vector in Java is thread-safe. However, since the addLine method in DecodedStore is  Synchronized, it is also reasonable to use a non-thread-safe data structure like ArrayList. But, considering the scalability of the program in future use, 
+  we think a vector is more appropriate when working with multi-threading programs
   Input and output file need be located in the top directory which is the same directory as this README text file
 
 PERCENT COMPLETE:
