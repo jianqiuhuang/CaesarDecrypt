@@ -48,25 +48,22 @@ public class Driver{
 
         /******************/
         //Initialize all necessary objects
-        Logger logger = new Logger();
-        logger.writeMessage("Logger constructor called", DebugLevel.CONSTRUCTOR);
-        logger.setDebugValue(debugValue);
+        Logger.setDebugValue(debugValue);
+       
         FileProcessor infile = new FileProcessor(inputFileName, 'r');
-        logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
+        Logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
         FileProcessor outfile = new FileProcessor(outputFileName, 'w');
-        logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
+        Logger.writeMessage("FileProcessor constructor called", DebugLevel.CONSTRUCTOR);
         CreateWorkers wokers = new CreateWorkers();
-        logger.writeMessage("CreatedWorkers constructor called", DebugLevel.CONSTRUCTOR);
+        Logger.writeMessage("CreatedWorkers constructor called", DebugLevel.CONSTRUCTOR);
         CaesarDecrypt decrypter = new CaesarDecrypt();
-        logger.writeMessage("CaesarDecrypt constructor called", DebugLevel.CONSTRUCTOR);
+        Logger.writeMessage("CaesarDecrypt constructor called", DebugLevel.CONSTRUCTOR);
         DecodedStore store = new DecodedStore(); 
-        logger.writeMessage("DecodedStore constructor called", DebugLevel.CONSTRUCTOR);
-        wokers.startWorkers(numberOfThreads, infile, decrypter, store, shiftValue, logger);
+        Logger.writeMessage("DecodedStore constructor called", DebugLevel.CONSTRUCTOR);
+        wokers.startWorkers(numberOfThreads, infile, decrypter, store, shiftValue);
 
         //Debug level that required to print data stored in store
-        if(debugValue == 1){
-            logger.writeMessage(store.toString(), DebugLevel.RESULT_CONTENT);
-        }
+        Logger.writeMessage(store.toString(), DebugLevel.RESULT_CONTENT);
         
         //Write data to file
         store.writeToFile(outfile);

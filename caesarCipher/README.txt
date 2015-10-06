@@ -4,15 +4,16 @@ ASSIGNMENT NO.2 README FILE
 
 Due Date: OCTOBER 8, 2015
 Submission Date: OCTOBER 8, 2015
-Grace Period Used This Project: N/A
-Grace Period Remaining: N/A
+Grace Period Used This Project: Seven days
+Grace Period Remaining: Seven days
 Author(s): JIANQIU HUANG AND BRANDON FOO
 e-mail(s): JHUANG86@BINGHAMTON.EDU AND ...
 
 
 PURPOSE:
 
-  This program is designed to decrypt Cipher text file using the multi-threading approach
+  This program is designed to decrypt Cipher text from input file using multi-threading approach
+  Input and output file need be located in the top directory which is the same directory as this README text file
 
 PERCENT COMPLETE:
 
@@ -29,6 +30,7 @@ BUGS:
 FILES:
     
   README.txt, the text file you are presently reading
+  
   build.xml, ANT script use to compile and run the program
   CaesarCipherI.java, interface that contains decryption method signiture
   CaesarDecrypt.java, class contains decryption method implementation
@@ -42,92 +44,86 @@ FILES:
 
 SAMPLE OUTPUT:
 
-[
-  Copy and paste a recent CORRECT output from your test runs, ALONG with the
-  command line. Cut it short if more than 10 lines. Here is a sample:
+  Sample run with shiftValue = 10, number of threads = 5, debug level = 4:
 
-  [erdil@the_caribbean:~erdil]$ ./a.out topaz 12345 binaenaleyh
-  SOME OUTPUT
-  SOME MORE
-  WOW, IT DOES NOT END
-  [snip here] (-> if too long)
-  OH MY..
-  FINALLY
-  [erdil@the_caribbean:~erdil]$
-]
+  remote00:~/designPatterns/assignment2/CaesarDecrypt/caesarCipher> ant -buildfile src/build.xml run -Darg0=input.txt -Darg1=yourOutput.txt -Darg2=10 -Darg3=  5 -Darg4=4
+  Buildfile: /import/linux/home/jhuang86/designPatterns/assignment2/CaesarDecrypt/caesarCipher/src/build.xml
+
+  jar:
+
+  run:
+     [java] FileProcessor constructor called
+     [java] FileProcessor constructor called
+     [java] CreatedWorkers constructor called
+     [java] CaesarDecrypt constructor called
+     [java] DecodedStore constructor called
+     [java] ThreadedDecrypter constructor called
+     [java] Thread constructor called
+     [java] ThreadedDecrypter constructor called
+     [java] Thread constructor called
+     [java] ThreadedDecrypter constructor called
+     [java] Thread constructor called
+     [java] ThreadedDecrypter constructor called
+     [java] Thread constructor called
+     [java] ThreadedDecrypter constructor called
+     [java] Thread constructor called
+
+  Output file contains:
+
+  remote00:~/designPatterns/assignment2/CaesarDecrypt/caesarCipher> cat yourOutput.txt                                                                         iHRvvQCsiK
+  fcqkUNsxXE
+  ucplruRtSF
+  SZTprhdfwP
+  PqzpYWHZFe
+  qnYmtlBvoi
+  yfevpIDSCN
+  PhodEJEqZu
+  MgyRgzooma
+  GycAcKwBbA
 
 TO COMPILE:
-
-[
-  Document here how your TA can build your program after extracting your
-  gzipped-tarball. (Note: ideally, TA should just do a "make". Justify extra
-  steps needed). Be as clear as possible, refer to "... FOR DUMMIES" book
-  format. Assume your TA is completely lost, trying to save the universe.
-  Here is a sample:
-
-  Just extract the files and then do a "make".
-]
+    
+  ant -buildfile src/build.xml all
 
 TO RUN:
+  Run with command line arguments:
+   ********Note: must modify run in build.xml to the following format***********
+   
+    <target name="run" depends="jar">
+        <java jar="${BUILD}/jar/caesarCipher.jar"  fork="true">
+            <arg value="${arg0}"/>
+            <arg value="${arg1}"/>
+            <arg value="${arg2}"/>
+            <arg value="${arg3}"/>
+            <arg value="${arg4}"/>
+        </java>
 
-[
-  Document here how your TA can test your program after extracting your gzipped-
-  tarball. Be as clear as possible, refer to "... FOR DUMMIES" book format.
-  Assume your TA is completely lost, there is another universe. Here is a
-  sample:
+    </target>
 
-  Please run as: ./a.out <REGHOST> <REGPORT> <UNIQNAME>
-  For example:   ./a.out topaz 12345 binaenaleyh
-]
+  *************Then run the following command in terminal********************
 
-EXTRA CREDIT:
+    ant -buildfile src/build.xml run -Darg0=firstarg -Darg1=secondarg -Darg2=thirdarg -Darg3=fourtharg -Darg4=fiftharg
 
-[
-  Document here extra work you have done to get bonus grade, IF THERE IS ANY.
-  Otherwise, say "N/A"
-]
+  Run without comand line arguments:
+  ********Note: must modify run in build.xml to the following format***********
+  <target name="run" depends="jar">
+        <java jar="${BUILD}/jar/caesarCipher.jar"  fork="true">
+            <arg value="firstarg"/>
+            <arg value="secondarg"/>
+            <arg value="$thirdarg"/>
+            <arg value="$fourtharg"/>
+            <arg value="$fiftharg"/>
+        </java>
+  </target>
 
+  *************Then run the following command in terminal********************
 
-BIBLIOGRAPHY:
+    ant -buildfile src/build.xml run 
 
-This serves as evidence that we are in no way intending Academic Dishonesty.
-<NAMES OF GROUP MEMBERS>
-
-[
-  Document here any sources, books, internet resources you have benefited from.
-
-  Here are some samples:
-
-  * http://spring2004.cs654.allprojectsolutions.binghamtonuniversity.com
-
-  * Deitel, H. M., and Deitel P. J. Java How To Program 3/E. Upper Saddle River:
-    Prentice Hall, 1999 (pp. 385-369)
-]
-
-ACKNOWLEDGEMENT:
-
-[
-  Document here your classmates, and/or other people who have helped you.
-  DON'T ACKNOWLEDGE YOUR TEAMMATES.
-  Here is a sample:
-
-  During the coding process one or more of the following people may have been
-  consulted. Their help is greatly appreciated.
-
-  B. Gates
-  S. Jobs
-
-]
-Assuming you are in the directory containing this README:
+Additional useful ANT commands:
 
 ## To clean:
 ant -buildfile src/build.xml clean
-
-## To compile: 
-ant -buildfile src/build.xml all
-
-## To run by specifying arguments from command line [similarly for the 2nd argument and so on ...]
-ant -buildfile src/build.xml run -Darg0=firstarg 
 
 ## To run by specifying args in build.xml
 ant -buildfile src/build.xml run b
@@ -135,4 +131,18 @@ ant -buildfile src/build.xml run b
 ## To create tarball for submission
 ant -buildfile src/build.xml tarzip
 
+    
+EXTRA CREDIT:
 
+  N/A
+
+BIBLIOGRAPHY:
+
+  N/A
+
+ACKNOWLEDGEMENT:
+
+  During the coding process one or more of the following people may have been consulted. Their help is greatly appreciated
+
+  Madhu Govindaraju
+  Brandon Foo

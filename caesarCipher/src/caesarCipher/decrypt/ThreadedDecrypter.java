@@ -10,16 +10,14 @@ public class ThreadedDecrypter implements Runnable  {
     private int threadNumber;
     private CaesarDecrypt decrypter;
     private DecodedStore store;
-    private Logger logger;
     private int shiftValue;
 
-    public ThreadedDecrypter(FileProcessor fileStream, int num, CaesarDecrypt decrypter, DecodedStore store, int shiftValue, Logger logger){
+    public ThreadedDecrypter(FileProcessor fileStream, int num, CaesarDecrypt decrypter, DecodedStore store, int shiftValue){
         this.infile = fileStream;
         this.threadNumber = num;
         this.store = store;
         this.decrypter = decrypter;
         this.shiftValue = shiftValue;
-        this.logger = logger;
     }
 
     /**
@@ -29,14 +27,14 @@ public class ThreadedDecrypter implements Runnable  {
      */ 
     public void run() {
         try{
-            this.logger.writeMessage("run() called", DebugLevel.THREAD_RUN);
+            Logger.writeMessage("run() called", DebugLevel.THREAD_RUN);
             //reading need to be thread-safe
             String line;
             while((line = this.infile.readLineFromFile()) != null){
                 String output = decrypter.decode(line, this.shiftValue);
                 //System.out.println(threadNumber + ": " + line "---" + output);
                 store.addLine(output);
-                this.logger.writeMessage("Entry added to results data structure", DebugLevel.ADD_RESULT);
+                Logger.writeMessage("Entry added to results data structure", DebugLevel.ADD_RESULT);
             }
             /**Create an instance of CaesarDecrypt and call decode to obtain the decoded string
              * Create an instance of DecodedStore and call store method inserts the string to its data structure

@@ -15,16 +15,16 @@ public class CreateWorkers  {
      * @param shiftValue # of shift position for decryption
      * @param logger debugging object
      **/
-    public void startWorkers(int numberOfWorkers, FileProcessor infile, CaesarDecrypt decrypter, DecodedStore store, int shiftValue, Logger logger){
+    public void startWorkers(int numberOfWorkers, FileProcessor infile, CaesarDecrypt decrypter, DecodedStore store, int shiftValue){
         //Store all initialized threads
         Vector<Thread> threadContainer = new Vector();
         
         try{
             for(int i = 0; i < numberOfWorkers; i++){
-                ThreadedDecrypter obj = new ThreadedDecrypter(infile, i, decrypter, store, shiftValue, logger);
-                logger.writeMessage("ThreadedDecrypter constructor called", DebugLevel.CONSTRUCTOR); 
+                ThreadedDecrypter obj = new ThreadedDecrypter(infile, i, decrypter, store, shiftValue);
+                Logger.writeMessage("ThreadedDecrypter constructor called", DebugLevel.CONSTRUCTOR); 
                 Thread newThread = new Thread(obj);
-                logger.writeMessage("Thread constructor called", DebugLevel.CONSTRUCTOR);
+                Logger.writeMessage("Thread constructor called", DebugLevel.CONSTRUCTOR);
                 threadContainer.addElement(newThread);
                // System.out.println("Thread #" + i + " created");
                 newThread.start();
