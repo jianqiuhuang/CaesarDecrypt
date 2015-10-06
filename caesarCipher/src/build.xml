@@ -52,9 +52,9 @@
 <target name="run" depends="jar">
         <java jar="${BUILD}/jar/caesarCipher.jar"  fork="true">
             <arg value="in.txt"/>
-        	<arg value="out.txt"/>
-        	<arg value="2"/>
-        	<arg value="4"/>
+        	<arg value="yourResult.txt"/>
+        	<arg value="10"/>
+        	<arg value="5"/>
         	<arg value="4"/>
         </java>
 	
