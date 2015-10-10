@@ -46,6 +46,8 @@ public class Driver{
             usage();
         }
 
+        shiftValue %= 26;
+
         /******************/
         //Initialize all necessary objects
         Logger.setDebugValue(debugValue);
